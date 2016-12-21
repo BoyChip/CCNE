@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="giamgiatrenhoadon_giaodien" model="ir.ui.view">
+        <field name="name">Chiet khau</field>
+        <field name="model">sale.discount.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="luachon" />
+                    <field name="giatri" />
+                </group>
+                <footer>
+                    <button string='Dong y' name="submit" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="giamgiatrenhoadon_hanhdong" model="ir.actions.act_window">
+        <field name="name">Chiet khau</field>
+        <field name="res_model">sale.discount.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="giamgiatrenhoadon_giaodien" />
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before" >
+                <button name="%(giamgiatrenhoadon_hanhdong)d" class="oe_highlight" string="Chieu khau" type="action" attrs="{'invisible': [('state', 'in', ('sale', 'cancel'))]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</odoo>
